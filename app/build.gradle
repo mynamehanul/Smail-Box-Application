@@ -2,6 +2,17 @@ plugins {
     id 'com.android.application'
 }
 
+configurations {
+    all {
+        resolutionStrategy {
+            // do not upgrade above 3.12.0 to support API < 21 while server uses
+            // COMPATIBLE_TLS, or okhttp3 is used in project
+            force 'com.squareup.okhttp3:okhttp:3.12.0'
+            force 'com.squareup.okhttp3:logging-interceptor:3.12.0'
+        }
+    }
+}
+
 android {
     compileSdk 33
 
@@ -21,6 +32,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildFeatures{
+        dataBinding true
+        viewBinding = true
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -29,7 +47,14 @@ android {
 }
 
 dependencies {
-
+    constraints {
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
+            because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")
+        }
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.0") {
+            because("kotlin-stdlib-jdk8 is now a part of kotlin-stdlib")
+        }
+    }
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

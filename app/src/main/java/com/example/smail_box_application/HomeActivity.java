@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -19,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.Home);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId() ){
+            switch (item.getItemId() ) {
                 case R.id.Home:
                     return true;
                 case R.id.Settings:
@@ -33,6 +32,5 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
-
     }
 }
