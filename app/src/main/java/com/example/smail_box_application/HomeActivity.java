@@ -83,9 +83,6 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(String... params) {
             try {
-                /*********************************************************/
-                /* Change the IP to the IP you set in the arduino sketch */
-                /*********************************************************/
                 URL url = new URL("http://192.168.0.83:5000/18/" + params[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

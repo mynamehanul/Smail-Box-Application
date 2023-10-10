@@ -15,7 +15,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.Home);
+        bottomNavigationView.setSelectedItemId(R.id.Settings);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId() ){

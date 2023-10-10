@@ -15,7 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.Home);
+        bottomNavigationView.setSelectedItemId(R.id.Profile);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId() ){
