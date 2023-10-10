@@ -8,6 +8,7 @@ import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -15,8 +16,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Home);
+
+
+
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId() ){
