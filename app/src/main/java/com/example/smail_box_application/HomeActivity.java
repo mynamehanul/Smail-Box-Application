@@ -26,8 +26,8 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
 
-        Button lock = (Button) findViewById(R.id.uspslockbutton);
-        Button unlock = findViewById(R.id.uspsunlockbutton);
+        Button lock = (Button) findViewById(R.id.userlockbutton);
+        Button unlock = findViewById(R.id.userunlockbutton);
 
 
         lock.setOnClickListener(v -> {

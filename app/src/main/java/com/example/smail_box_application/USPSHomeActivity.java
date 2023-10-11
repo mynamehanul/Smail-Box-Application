@@ -1,20 +1,20 @@
 package com.example.smail_box_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
 import android.widget.Button;
-
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -23,21 +23,17 @@ public class USPSHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_uspshome);
+        setContentView(R.layout.activity_usps);
 
-
-        Button lock = (Button) findViewById(R.id.uspslockbutton);
+        Button lock = findViewById(R.id.uspslockbutton);
         Button unlock = findViewById(R.id.uspsunlockbutton);
 
-
         lock.setOnClickListener(v -> {
-            new Background_get().execute("on");
-            Log.i("Lock", "Box locked");
+            makeNotification("USPS locked your mailbox!");
         });
 
         unlock.setOnClickListener(v -> {
-            new Background_get().execute("off");
-            Log.i("Unlock", "Box unlocked");
+            makeNotification("USPS unlocked your mailbox!");
         });
 
 
@@ -59,30 +55,34 @@ public class USPSHomeActivity extends AppCompatActivity {
             }
             return false;
         });
-
     }
 
-    private class Background_get extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL("http://192.168.0.83:5000/18/" + params[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public void makeNotification(String contentText){
+        String channelID = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelID);
+        builder.setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("SmailBox")
+                .setContentText(contentText)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder result = new StringBuilder();
-                String inputLine;
-                while ((inputLine = in.readLine()) != null)
-                    result.append(inputLine).append("\n");
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);    // new notification open directly to Notification page
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("data",contentText);
 
-                in.close();
-                connection.disconnect();
-                return result.toString();
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelID);
+            if(notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(channelID,"Some description", importance);
+                notificationManager.createNotificationChannel(notificationChannel);
             }
-            return null;
         }
+
+        notificationManager.notify(0,builder.build());
     }
 }

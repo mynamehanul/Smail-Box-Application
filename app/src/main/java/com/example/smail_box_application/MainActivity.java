@@ -1,88 +1,80 @@
 package com.example.smail_box_application;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-
 public class MainActivity extends AppCompatActivity {
 
-
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_profile);          // showing content layout of Profile page
 
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.Home);
-
-        Button lock = (Button) findViewById(R.id.uspslockbutton);
-        Button unlock = findViewById(R.id.uspsunlockbutton);
-
-
-        lock.setOnClickListener(v -> {
-            new MainActivity.Background_get().execute("on");
-            Log.i("Lock", "Box locked");
-        });
-
-        unlock.setOnClickListener(v -> {
-            new MainActivity.Background_get().execute("off");
-            Log.i("Unlock", "Box unlocked");
-        });
-
-
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId() ){
-                case R.id.Home:
-                    return true;
-                case R.id.Settings:
-                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                    finish();
-                    return true;
-                case R.id.Profile:
-                    startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                    finish();
-                    return true;
+        Button userbutton = findViewById(R.id.userbutton);          // creating object and initialize userbutton
+        Button uspsbutton = findViewById(R.id.uspsbutton);
+        userbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeNotification("User accessed to mailbox");
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                finish();
             }
-            return false;
+        });
+
+        uspsbutton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                makeNotification("USPS accessed to mailbox");
+                startActivity(new Intent(getApplicationContext(), USPSHomeActivity.class));
+                //finish();
+            }
         });
 
     }
 
-    private class Background_get extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... params) {
-            try {
-                URL url = new URL("http://192.168.0.83:5000/18/" + params[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    public void makeNotification(String contentText){
+        String channelID = "CHANNEL_ID_NOTIFICATION";
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(),channelID);
+        builder.setSmallIcon(R.drawable.ic_notification)
+                .setContentTitle("SmailBox")
+                .setContentText(contentText)
+                .setAutoCancel(true)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
-                BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder result = new StringBuilder();
-                String inputLine;
-                while ((inputLine = in.readLine()) != null)
-                    result.append(inputLine).append("\n");
+        Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);    // new notification open directly to Notification page
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("data","Some value to passed here");
 
-                in.close();
-                connection.disconnect();
-                return result.toString();
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel notificationChannel = notificationManager.getNotificationChannel(channelID);
+            if(notificationChannel == null) {
+                int importance = NotificationManager.IMPORTANCE_HIGH;
+                notificationChannel = new NotificationChannel(channelID,"Some description", importance);
+                notificationManager.createNotificationChannel(notificationChannel);
             }
-            return null;
         }
+
+        notificationManager.notify(0,builder.build());
     }
+
 }

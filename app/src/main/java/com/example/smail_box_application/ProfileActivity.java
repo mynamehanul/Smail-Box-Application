@@ -26,25 +26,6 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);          // showing content layout of Profile page
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        bottomNavigationView.setSelectedItemId(R.id.Profile);
-
-        bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId() ){
-                case R.id.Home:
-                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    finish();
-                    return true;
-                case R.id.Settings:
-                    startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-                    finish();
-                    return true;
-                case R.id.Profile:
-                    return true;
-            }
-            return false;
-        });
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(ProfileActivity.this,
                     Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
