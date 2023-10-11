@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.BufferedReader;
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Home);
 
-        Button lock = (Button) findViewById(R.id.lockbutton);
-        Button unlock = findViewById(R.id.unlockbutton);
+        Button lock = (Button) findViewById(R.id.uspslockbutton);
+        Button unlock = findViewById(R.id.uspsunlockbutton);
 
 
         lock.setOnClickListener(v -> {

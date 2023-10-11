@@ -52,10 +52,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.471"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/unlockbutton" />
+        app:layout_constraintTop_toBottomOf="@+id/uspsunlockbutton" />
 
     <Button
-        android:id="@+id/lockbutton"
+        android:id="@+id/uspslockbutton"
         android:layout_width="188dp"
         android:layout_height="86dp"
         android:layout_below="@+id/camerabutton"
@@ -65,14 +65,14 @@
         android:layout_marginBottom="20dp"
         android:text="Lock"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/unlockbutton"
-        app:layout_constraintStart_toStartOf="@+id/unlockbutton" />
+        app:layout_constraintBottom_toTopOf="@+id/uspsunlockbutton"
+        app:layout_constraintStart_toStartOf="@+id/uspsunlockbutton" />
 
     <Button
-        android:id="@+id/unlockbutton"
+        android:id="@+id/uspsunlockbutton"
         android:layout_width="188dp"
         android:layout_height="86dp"
-        android:layout_below="@+id/lockbutton"
+        android:layout_below="@+id/uspslockbutton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="6dp"
         android:text="Unlock"
