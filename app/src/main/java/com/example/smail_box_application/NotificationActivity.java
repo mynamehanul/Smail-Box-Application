@@ -17,8 +17,7 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
         textView = findViewById(R.id.textNotificationData);
-        String data = getIntent().getStringExtra("data");
-        textView.setText(data);
+        textView.setText(getIntent().getStringExtra("notificationData"));
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setSelectedItemId(R.id.Home);

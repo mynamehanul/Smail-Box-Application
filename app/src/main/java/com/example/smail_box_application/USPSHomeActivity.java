@@ -25,15 +25,25 @@ public class USPSHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_usps);
 
-        Button lock = findViewById(R.id.uspslockbutton);
-        Button unlock = findViewById(R.id.uspsunlockbutton);
+        Button maillock = findViewById(R.id.uspsmaillockbutton);
+        Button mailunlock = findViewById(R.id.uspsmailunlockbutton);
+        Button garagelock = findViewById(R.id.uspsgaragelockbutton);
+        Button garageunlock = findViewById(R.id.uspsgarageunlockbutton);
 
-        lock.setOnClickListener(v -> {
+        maillock.setOnClickListener(v -> {
             makeNotification("USPS locked your mailbox!");
         });
 
-        unlock.setOnClickListener(v -> {
+        mailunlock.setOnClickListener(v -> {
             makeNotification("USPS unlocked your mailbox!");
+        });
+
+        garagelock.setOnClickListener(v -> {
+            makeNotification("USPS locked your garage!");
+        });
+
+        garageunlock.setOnClickListener(v -> {
+            makeNotification("USPS unlocked your garage!");
         });
 
 

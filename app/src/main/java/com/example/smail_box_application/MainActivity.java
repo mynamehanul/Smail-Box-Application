@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 makeNotification("User accessed to mailbox");
                 startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                finish();
             }
         });
 
@@ -42,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 makeNotification("USPS accessed to mailbox");
                 startActivity(new Intent(getApplicationContext(), USPSHomeActivity.class));
-                //finish();
             }
         });
 
@@ -59,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), NotificationActivity.class);    // new notification open directly to Notification page
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("data","Some value to passed here");
+        intent.putExtra("notificationData","contentText");
 
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
         builder.setContentIntent(pendingIntent);

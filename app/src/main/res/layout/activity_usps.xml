@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".USPSHomeActivity">
 
-
     <ImageView
         android:id="@+id/smailBoxLogo"
         android:layout_width="269dp"
@@ -44,31 +43,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.34" />
 
-    <Button
-        android:id="@+id/uspslockbutton"
-        android:layout_width="188dp"
-        android:layout_height="86dp"
+    <TextView
+        android:id="@+id/smailBoxText2"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
         android:layout_below="@+id/smailBoxText"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="30dp"
-        android:text="Lock"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/uspsunlockbutton"
-        app:layout_constraintStart_toStartOf="@+id/uspsunlockbutton" />
+        android:layout_marginStart="59dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="monospace"
+        android:text="MailBox"
+        android:textSize="20dp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.34" />
+
+    <TextView
+        android:id="@+id/smailBoxText3"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_below="@+id/smailBoxText"
+        android:layout_marginStart="115dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@+id/smailBoxText2"
+        android:fontFamily="monospace"
+        android:text="Garage"
+        android:textSize="20dp"
+        app:autoSizeTextType="uniform" />
 
     <Button
-        android:id="@+id/uspsunlockbutton"
-        android:layout_width="188dp"
-        android:layout_height="86dp"
-        android:layout_below="@+id/uspslockbutton"
+        android:id="@+id/uspsmaillockbutton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/smailBoxText2"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:text="Lock"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/uspsmailunlockbutton"
+        app:layout_constraintStart_toStartOf="@+id/uspsmailunlockbutton" />
+
+    <Button
+        android:id="@+id/uspsgaragelockbutton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/smailBoxText2"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/uspsmaillockbutton"
+        android:text="Lock"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/uspsmailunlockbutton"
+        app:layout_constraintStart_toStartOf="@+id/uspsmailunlockbutton" />
+
+    <Button
+        android:id="@+id/uspsmailunlockbutton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/uspsmaillockbutton"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
         android:text="Unlock"
-        android:textSize="30sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/uspsgarageunlockbutton"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/uspsmaillockbutton"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/uspsmailunlockbutton"
+        android:text="Unlock"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:layout_width="0dp"
